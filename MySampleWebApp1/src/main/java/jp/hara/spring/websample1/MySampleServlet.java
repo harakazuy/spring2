@@ -19,7 +19,10 @@ public class MySampleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private MyBean mybean1;
+	private MyBean2 mybean2;
+	
+	@Autowired
+	private MyBeanEventService beanService;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -33,7 +36,7 @@ public class MySampleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("mybean", mybean1);
+		request.setAttribute("mybean", mybean2);
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
@@ -42,7 +45,7 @@ public class MySampleServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String message = request.getParameter("message");
-		mybean1.addMessage(message);
+		beanService.doService(message);
 		response.sendRedirect("sample");
 	}
 
